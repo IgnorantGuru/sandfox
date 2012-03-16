@@ -1,0 +1,30 @@
+
+# 1.1.3:  added bindro /run/resolvconf to default Firefox profile
+# 1.1.2:  accomodate change to remount bind usage
+#         accomodate change to mtab bind mounts showing type
+#         added /dev/nvidia0 & /dev/nvidiactl binds to default profiles
+#         added bindro=/opt/firefox to default firefox profile
+#         improved detection for 'firefox already running' warning
+# 1.1.1:  accomodate recent change to ps line endings
+# 1.1.0:  kills dbus-launch inside sandboxes before closing (lsof required)
+# 1.0.10: use tmpfs instead of none for mount source (due to new util-linux)
+#         skype profile adds /opt/skype and disable note for Gentoo users
+# 1.0.9:  permissions on mnt folders
+#         removed uuidgen dependency
+#         determine sandbox user with Xauthority
+#         added default google-earth profile
+# 1.0.8:  modification of daemon detection for non-standard ps
+#         non-existent --sandbox triggers make
+#         corrected --status mount count
+# 1.0.7:  added /dev/video0 to skype profile (replaces /dev/video)
+#         added disabled Lockdown X Access section to default profile
+# 1.0.6:  added firefox bindro for ~/.Xauthority
+#         added warning if firefox already running
+# 1.0.5:  modification of daemon detection for non-standard ps
+# 1.0.4:  corrected detection of running daemon with --verbose and --logfile
+# 1.0.3:  corrected problems with sandboxes with similar names
+# 1.0.2:  hide non-existent folder corrected
+# 1.0.0:  handle /dev/urandom like /dev/random to prevent hangs
+# 0.9.6:  Changed tmpfslimit to 100M
+#         now allows successful bind=/dev/random for Firefox printing
+#         added user-contributed skype profile  (experimental)

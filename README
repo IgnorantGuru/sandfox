@@ -1,0 +1,54 @@
+README for sandfox
+
+
+OVERVIEW
+
+Sandfox runs programs within sandboxes which limit the programs’ access to only
+the folders you specify. Programs and their child processes, like Firefox
+plugins, Flash, and Java, are only able to access files within the sandbox.
+Sandfox supports the use of custom profiles which determine what folders and
+files are included in each program’s sandbox, and includes default profiles for
+Firefox, Skype, and Google-Earth. Sandfox can create separate sandboxes for
+each program, or can run multiple programs in one sandbox. Programs are run in
+a chroot jail as a normal user, providing a substantial level of security.
+Sandfox is designed to be very easy to use. It handles the details for you
+while still giving you the ability to construct custom sandboxes easily.
+
+Homepage & Instructions:
+    http://igurublog.wordpress.com/downloads/script-sandfox/
+
+Downloads:
+    https://github.com/IgnorantGuru/sandfox
+    https://github.com/IgnorantGuru/sandfox/tree/master/packages
+
+Debian/Ubuntu PPA:
+    http://igurublog.wordpress.com/downloads/ppa/
+
+
+INSTALLATION
+
+To install:
+
+    wget https://github.com/IgnorantGuru/devmon/raw/master/sandfox
+    sudo install sandfox /usr/local/bin/sandfox
+
+To remove:
+    
+    sudo rm /usr/local/bin/sandfox
+
+
+LICENSE
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+

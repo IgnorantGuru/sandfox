@@ -1,0 +1,49 @@
+#!/bin/bash
+# Sandfox boot startup script for Ubuntu and similar
+
+sandfoxuser=myuser
+sandfoxprofile=firefox
+sandfoxbin=/usr/local/bin/sandfox
+
+start() {
+	echo -n "Starting Sandfox: "
+	$sandfoxbin --profile $sandfoxprofile --user $sandfoxuser
+	if [ $? -gt 0 ]; then
+		echo "failure"
+		RETVAL=$?
+	else
+		echo "success"
+		RETVAL=0
+	fi
+}
+
+stop() {
+	echo -n "Stopping Sandfox: "
+	$sandfoxbin --closeall --user $sandfoxuser
+	if [ $? -gt 0 ]; then
+		echo "failure"
+		RETVAL=$?
+	else
+		echo "success"
+		RETVAL=0
+	fi
+}
+
+case "$1" in
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	restart)
+		stop
+		sleep 3
+		start
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart}"
+		RETVAL=1
+esac
+exit $RETVAL
+
