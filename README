@@ -2,6 +2,7 @@ README for sandfox
 
 
 OVERVIEW
+========
 
 Sandfox runs programs within sandboxes which limit the programs’ access to only
 the folders you specify. Programs and their child processes, like Firefox
@@ -18,19 +19,25 @@ Homepage & Instructions:
     http://igurublog.wordpress.com/downloads/script-sandfox/
 
 Downloads:
-    https://github.com/IgnorantGuru/sandfox
+    https://github.com/IgnorantGuru/sandfox/tags
     https://github.com/IgnorantGuru/sandfox/tree/master/packages
 
 Debian/Ubuntu PPA:
     http://igurublog.wordpress.com/downloads/ppa/
 
+Bug Reports:
+    https://github.com/IgnorantGuru/sandfox/issues
+
 
 INSTALLATION
+============
 
 To install:
 
-    wget https://github.com/IgnorantGuru/devmon/raw/master/sandfox
+    wget https://github.com/IgnorantGuru/sandfox/raw/master/sandfox
     sudo install sandfox /usr/local/bin/sandfox
+
+sandfox also REQUIRES: inotify-tools lsof
 
 To remove:
     
@@ -38,6 +45,7 @@ To remove:
 
 
 LICENSE
+=======
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
