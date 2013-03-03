@@ -1,4 +1,5 @@
-
+# 1.1.4:  chroot discovery
+#         added Firefox and Skype bindro=/home/\$user/.asoundrc
 # 1.1.3:  added bindro /run/resolvconf to default Firefox profile
 # 1.1.2:  accomodate change to remount bind usage
 #         accomodate change to mtab bind mounts showing type

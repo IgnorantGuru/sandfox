@@ -6,7 +6,7 @@
 help ()
 {
 cat << EOF
-sandfox version 1.1.3
+sandfox version 1.1.4
 Usage: sandfox [OPTIONS] [COMMAND [ARG]...]
 Runs COMMAND as a normal user within a chroot jail sandbox with limited
 access to the filesystem.  Supports profiles for apps and includes a default
@@ -662,6 +662,7 @@ bind=/var/run               # Firefox shows Cups printers
 bind=/home/\$user/.mozilla
 bind=/home/\$user/.esd_auth
 bind=/home/\$user/.java
+bindro=/home/\$user/.asoundrc
 
 # Needed for KDE and Gnome themes in Firefox   (may be incomplete for gnome)
 # To find out what other binds you may need, run 'env' in a shell as user
@@ -755,7 +756,7 @@ bindro=/home/\$user/.ICEauthority
 bindro=/home/\$user/.Xauthority
 bindro=/home/\$user/.config/Trolltech.conf
 bindro=/home/\$user/.fontconfig
-
+bindro=/home/\$user/.asoundrc
 
 EOF
     fi
@@ -853,6 +854,18 @@ sandbox=""
 logfile=""
 logcl="$0 $*"
 curprofile="commandline"
+
+# find chroot
+wchroot=`which chroot`
+if [ "$wchroot" = "" ]; then
+	if [ -e /usr/sbin/chroot ]; then
+		wchroot=/usr/sbin/chroot
+	elif [ -e /sbin/chroot ]; then
+		wchroot=/sbin/chroot
+	else
+		wchroot=chroot
+	fi
+fi
 
 # parse command line
 if [ "$1" = "" ]; then
@@ -1384,11 +1397,11 @@ if (( optmake == 1 )) && [ "$runuser" = "root" ]; then
         mkdir -p "$eventsfolder/$sandname"
         chmod ugo+rwx,+t "$eventsfolder/$sandname"
         log "Starting daemon as $user for sandbox \"$sandname\"..." "verb"
-        log ">>> chroot $sand /bin/su $user -c \"$eventsfolder/tmp/sandfox --daemon $dlog $verb --watch $eventsfolder/$sandname\"" "verb"
+        log ">>> $wchroot $sand /bin/su $user -c \"$eventsfolder/tmp/sandfox --daemon $dlog $verb --watch $eventsfolder/$sandname\"" "verb"
         if (( optverbose == 1 )); then
-            chroot $sand /bin/su $user -c "$eventsfolder/tmp/sandfox --daemon $dlog $verb --watch $eventsfolder/$sandname" &
+            $wchroot $sand /bin/su $user -c "$eventsfolder/tmp/sandfox --daemon $dlog $verb --watch $eventsfolder/$sandname" &
         else
-            chroot $sand /bin/su $user -c "$eventsfolder/tmp/sandfox --daemon $dlog $verb --watch $eventsfolder/$sandname" 2> /dev/null > /dev/null &
+            $wchroot $sand /bin/su $user -c "$eventsfolder/tmp/sandfox --daemon $dlog $verb --watch $eventsfolder/$sandname" 2> /dev/null > /dev/null &
         fi
         sleep .5
         test=`ps -u $user -o "%U %a" | grep -v "grep" \
@@ -1465,22 +1478,22 @@ if [ "$bcmd" != "" ]; then
                 p=" running $bprog"
             fi
             log ">>> shell - you are $user$p in sandbox \"$sandname\" <<<"
-            log ">>> chroot $mnt/$sandname /bin/su $user -c \"$bcmd\"" "verb"
+            log ">>> $wchroot $mnt/$sandname /bin/su $user -c \"$bcmd\"" "verb"
             if [ "$SUDO_USER" != "" ]; then
                 ruser="$SUDO_USER"
             else
                 ruser="ROOT"
             fi
-            chroot $mnt/$sandname /bin/su $user -c "$bcmd"
+            $wchroot $mnt/$sandname /bin/su $user -c "$bcmd"
             log
             log "<<< exit - you are $ruser out of the sandbox >>>"
         else
             log "Starting $bprog as $user in sandbox \"$sandname\"..."
-            log ">>> chroot $mnt/$sandname /bin/su $user -c \"$bcmd\" &" "verb"
+            log ">>> $wchroot $mnt/$sandname /bin/su $user -c \"$bcmd\" &" "verb"
             if (( verbose == 1 )); then
-                chroot $mnt/$sandname /bin/su $user -c "$bcmd" &
+                $wchroot $mnt/$sandname /bin/su $user -c "$bcmd" &
             else
-                chroot $mnt/$sandname /bin/su $user -c "$bcmd" 2> /dev/null > /dev/null &
+                $wchroot $mnt/$sandname /bin/su $user -c "$bcmd" 2> /dev/null > /dev/null &
             fi
         fi
     else
@@ -1521,6 +1534,8 @@ fi
 exit
 
 # CHANGELOG:
+# 1.1.4:  chroot discovery
+#         added Firefox and Skype bindro=/home/\$user/.asoundrc
 # 1.1.3:  added bindro /run/resolvconf to default Firefox profile
 # 1.1.2:  accomodate change to remount bind usage
 #         accomodate change to mtab bind mounts showing type

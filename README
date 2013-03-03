@@ -39,7 +39,10 @@ To install:
 
 sandfox also REQUIRES: inotify-tools lsof
 
-To remove:
+If using SpaceFM see:
+    http://igurublog.wordpress.com/downloads/script-sandfox/#spacefm
+
+To remove sandfox:
     
     sudo rm /usr/local/bin/sandfox
 
