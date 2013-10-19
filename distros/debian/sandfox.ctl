@@ -9,3 +9,4 @@ Copyright: COPYING
 Changelog: changelog
 Readme: README
 Depends: inotify-tools, lsof
+Files: sandfox /usr/bin/
